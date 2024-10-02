@@ -10,7 +10,7 @@
 #--------------------------------------------------------------
 
 #Ask the user for a date, specifying the format:
-user_date = "7/3/2003" #input("Enter a date (M/D/YYYY):")
+user_date = input("Enter a date (M/D/YYYY):")
 
 
 #Create a variable pointing to the data file
@@ -27,7 +27,7 @@ file_object.close()
 
 #Create two dictionary pairs
 date_dict = {}
-loaction_dict = {}
+location_dict = {}
 
 #Pretend we read one line of data from the file
 for lineString in line_list:
@@ -48,7 +48,21 @@ for lineString in line_list:
     #Determine if location class criteria is met
     if obs_lc in ("1", "2", "3"):
         date_dict[record_id] = obs_date
-        loaction_dict[record_id] = (obs_lat, obs_lon)
+        location_dict[record_id] = (obs_lat, obs_lon)
 
     #Print the location of sara
     print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+
+#Initialize key list
+keys = []
+
+# Loop through all key, value pairs in the date_dictionary
+for key, value in date_dict.items():
+    #See if the date (the value) matches the user date
+    if value == user_date:
+        keys.append(key)
+
+#Reveal locations for each key in matching_keys
+for matching_key in keys:
+    lat, lng = location_dict[matching_key]
+    print(f"On {user_date}, Sara the the turtle was seen at {lat}d Lat, {lng}d Lng.")
